@@ -1,0 +1,8 @@
+lam:
+  build: .
+  ports:
+  - "80:80"
+  volumes:
+    - "./config:/var/lib/ldap-account-manager/config"
+  environment:
+    LDAPTLS_CACERT: "/var/lib/ldap-account-manager/config/ldap.ca.crt"
