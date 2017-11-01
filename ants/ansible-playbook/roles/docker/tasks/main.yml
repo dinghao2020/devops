@@ -1,0 +1,37 @@
+---
+# tasks file for docker
+- name: ensure config directory
+  file: 
+    path: "{{ docker_config_dir }}"
+    state: directory
+
+- name: ensure required packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    
+- name: add docker ce repo
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+  register: docker_yum_repo
+  
+- name: make yum cache fast
+  shell: yum makecache fast
+  when: docker_yum_repo.changed
+  
+- name: install docker ce
+  yum:
+    name: "docker-ce-{{ docker_version }}"
+    state: present
+  notify: restart docker
+  
+- name: copy dockerd daemon.json
+  template: 
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  notify: restart docker

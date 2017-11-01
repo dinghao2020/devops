@@ -1,0 +1,5 @@
+---
+# yum list docker-ce.x86_64  --showduplicates |sort -r
+docker_version: 17.06.2.ce-1.el7.centos
+docker_config_dir: /etc/docker
+dockerd_option_graph: /var/lib/docker

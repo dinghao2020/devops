@@ -1,0 +1,13 @@
+---
+# tasks file for kvm-del
+- name: shutdown kvm {{ name }}
+  command: virsh destroy {{ name }}
+  tags: shutdown
+
+- name: undefine kvm {{ name }}
+  command: virsh undefine {{ name }}
+  tags: undefine
+
+- name: rm {{ name }}.img  disk file 
+  file: path={{ instance_dir }}/{{ name }}.img state=absent 
+  tags: rm

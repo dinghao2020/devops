@@ -1,0 +1,17 @@
+---
+# tasks file for kvm-new
+- name: create the file set_ip.sh
+  template: src={{ tem_file }} dest={{ file_name }}
+  tags: file
+
+- name: clone the instance
+  command: virt-clone -o {{ image_name }} -n {{ instance_name }}  -f /{{ instance_dir }}/{{ instance_name }}.img
+  tags: clone
+
+- name: copy in the  file set_ip.sh
+  shell: virt-copy-in -d {{ instance_name }} {{ file_name }} /etc/sysconfig/network-scripts/
+  tags: file_copy_in
+
+- name: start the instance
+  shell: virsh start {{ instance_name }}
+  tags: start
