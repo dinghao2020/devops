@@ -25,4 +25,4 @@
 123.57.15.96:8015 
 123.56.112.3:8015
 [new]
-59.110.0.169:22  ansible_ssh_user=root  ansible_ssh_pass='cim2wsx#12Ka$'
+59.110.0.169:22
