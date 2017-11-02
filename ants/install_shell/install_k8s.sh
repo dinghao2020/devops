@@ -26,6 +26,7 @@ mount -t nfs 10.130.21.88:/opt/dinghao/ /opt/img
 [[ -d /opt/img/k8s ]] || ( echo "挂载失败，退出" && exit 0 )
 cd /opt/img/k8s/
 for i in `ls`;do docker load < $i;done
+#echo '10.130.21.88:/opt/dinghao    /opt/img    nfs    defaults 0 0' >> /etc/fstab
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
