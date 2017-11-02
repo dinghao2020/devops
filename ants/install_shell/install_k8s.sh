@@ -41,7 +41,7 @@ EOF
 
 echo '#http_proxy' >> /etc/profile
 echo 'export http_proxy=http://10.130.21.188:8118
-export NO_PROXY=localhost,127.0.0.1,10.130.21.0/24,mirrors.aliyun.com
+export NO_PROXY=localhost,127.0.0.1,10.130.21.0/24,mirrors.aliyun.com,*.docker.com,*.mirrors.aliyun.com
 export https_proxy=http://10.130.21.188:8118' >> /etc/profile
 source /etc/profile
 
