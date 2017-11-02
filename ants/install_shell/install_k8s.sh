@@ -28,6 +28,14 @@ cd /opt/img/k8s/
 for i in `ls`;do docker load < $i;done
 #echo '10.130.21.88:/opt/dinghao    /opt/img    nfs    defaults 0 0' >> /etc/fstab
 
+[[ -d /etc/docker ]] || mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://p8y9w4gg.mirror.aliyuncs.com"]
+}
+EOF
+systemctl daemon-reload && systemctl restart docker
+
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
