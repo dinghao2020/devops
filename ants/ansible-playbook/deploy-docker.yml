@@ -1,5 +1,6 @@
 ---
 - hosts: docker
-  become: yes
+  remote_user: dinghao
+  become: true
   roles:
      - role: docker

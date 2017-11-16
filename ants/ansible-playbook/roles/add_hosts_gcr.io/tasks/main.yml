@@ -1,0 +1,8 @@
+---
+# tasks file for add_hosts_gcr.io
+- name: add a line gcr.io
+  lineinfile:
+     dest:  /etc/hosts
+     line: 'echo gcr.io  10.130.21.249'
+  tags:
+   - add_a_line_hosts_gcr.io

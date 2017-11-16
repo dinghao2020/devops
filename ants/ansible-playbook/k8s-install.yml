@@ -1,0 +1,7 @@
+---
+- hosts: k8snn
+  remote_user: root
+  roles:
+     - docker
+     - k8s-install
+

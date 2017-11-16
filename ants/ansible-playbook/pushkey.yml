@@ -1,0 +1,10 @@
+---
+- hosts: kvm12-new
+  remote_user: root
+  tasks:
+    - name: deliver authorized_keys
+      authorized_key: 
+        user: root
+        key: "{{ lookup('file', '/Users/dh/ansible-playbook/kvm/key.rsa.pub') }}"
+        state: present
+        exclusive: yes

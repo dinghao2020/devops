@@ -1,2 +1,16 @@
 ---
 # tasks file for nginx
+- selinux: state=disabled
+- name: Add repository
+  yum_repository:
+    name: nginx
+    baseurl: http://nginx.org/packages/centos/7/$basearch/
+    gpgcheck: no
+    enabled: yes
+    description: nginx repo
+- name: Install nginx
+  yum: name=nginx state=present
+- name: Copy nginx.conf
+  # template: src=./nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root  mode=0644 validate='nginx -t -c %s'
+  notify:
+  - Restart nginx

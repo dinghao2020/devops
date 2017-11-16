@@ -1,0 +1,10 @@
+---
+- hosts: k8s
+  remote_user: dinghao
+  sudo: yes
+  tasks:
+  - name: sed
+    script: ./sc_sed.sh
+  #- name: install etcd
+  #  yum: name=etcd3 state=latest 
+  #  tags: etcd

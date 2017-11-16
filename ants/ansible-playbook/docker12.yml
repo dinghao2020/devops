@@ -1,0 +1,8 @@
+---
+- hosts: docker
+  remote_user: dinghao
+  sudo: yes
+  tasks:
+  - name: install docker
+    script: pull.sh
+    tags: install-docker

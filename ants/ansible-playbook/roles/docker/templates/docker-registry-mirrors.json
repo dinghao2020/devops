@@ -1,0 +1,5 @@
+{
+  "registry-mirrors": ["https://p8y9w4gg.mirror.aliyuncs.com"],
+  "insecure-registries":["gcr.io"],
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}

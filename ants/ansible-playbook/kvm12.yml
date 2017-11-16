@@ -1,0 +1,28 @@
+---
+- hosts: kvm12
+  remote_user: dinghao
+  sudo: yes
+  vars:
+    image_name: centos73
+    instance_name: '{{ name }}'
+    instance_dir: /var/lib/libvirt/images
+    tem_dir: /Users/dh/ansible-playbook/kvm/templates
+    tem_file: "{{ tem_dir }}/set_ip_tem.sh.j2"
+    file_name: /tmp/ifcfg-eth0
+
+  tasks:
+  - name: create the file set_ip.sh
+    template: src={{ tem_file }} dest={{ file_name }}
+    tags: file
+
+  - name: clone the instance
+    command: virt-clone -o {{ image_name }} -n {{ instance_name }}  -f /{{ instance_dir }}/{{ instance_name }}.img
+    tags: clone
+
+  - name: copy in the  file set_ip.sh
+    shell: virt-copy-in -d {{ instance_name }} {{ file_name }} /etc/sysconfig/network-scripts/
+    tags: file_copy_in
+
+  - name: start the instance
+    shell: virsh start {{ instance_name }}
+    tags: start

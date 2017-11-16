@@ -1,8 +1,9 @@
 ---
 # vars file for kvm-new
-#image_name: centos73
-#instance_name: '{{ name }}'
-#instance_dir: /var/lib/libvirt/images
-#tem_dir: /Users/dh/ansible-playbook/kvm/templates
-#tem_file: "{{ tem_dir }}/set_ip_tem.sh.j2"
-#file_name: /tmp/ifcfg-eth0
+image_name: centos73
+instance_name: '{{ name }}'
+instance_dir: /var/lib/libvirt/images
+tem_file: set_ip_tem.sh.j2
+host_name_file: tmp_hostname.js
+tmp_host_name: /tmp/hostname
+file_name: /tmp/ifcfg-eth0

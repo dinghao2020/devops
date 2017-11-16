@@ -4,9 +4,17 @@
   template: src={{ tem_file }} dest={{ file_name }}
   tags: file
 
+- name: create the file set_hostname
+  template: src={{ host_name_file }} dest={{ tmp_host_name }}
+  tags: up_hostname_file
+
 - name: clone the instance
   command: virt-clone -o {{ image_name }} -n {{ instance_name }}  -f /{{ instance_dir }}/{{ instance_name }}.img
   tags: clone
+
+- name: copy in the  file hostname
+  shell: virt-copy-in -d {{ instance_name }} {{ tmp_host_name }} /etc/
+  tags: hostname_copy_in
 
 - name: copy in the  file set_ip.sh
   shell: virt-copy-in -d {{ instance_name }} {{ file_name }} /etc/sysconfig/network-scripts/

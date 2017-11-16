@@ -1,5 +1,5 @@
 ---
-# tasks file for docker
+
 - name: ensure config directory
   file: 
     path: "{{ docker_config_dir }}"
@@ -15,23 +15,33 @@
     - lvm2
     
 - name: add docker ce repo
-  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  shell: yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
   args:
     creates: /etc/yum.repos.d/docker-ce.repo
   register: docker_yum_repo
   
 - name: make yum cache fast
-  shell: yum makecache fast
+  command: yum makecache fast
   when: docker_yum_repo.changed
   
 - name: install docker ce
   yum:
-    name: "docker-ce-{{ docker_version }}"
+    name: "docker-ce-17.09.0.ce"
     state: present
   notify: restart docker
-  
-- name: copy dockerd daemon.json
-  template: 
-    src: daemon.json.j2
-    dest: /etc/docker/daemon.json
-  notify: restart docker
+
+- name: create the file set_ip.sh
+  template: src={{ tem_file }} dest={{ file_name }}
+  tags: file
+
+- name: iptables set for docker
+  lineinfile:
+    dest: /usr/lib/systemd/system/docker.service
+    regexp: 'containers'
+    insertbefore: '^ExecStart=/usr/bin/dockerd'   
+    line: 'ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT'
+  tags:
+  - iptabes 
+
+- name: restart docker
+  systemd: name=docker state=restarted enabled=yes daemon_reload=yes

@@ -1,0 +1,39 @@
+---
+# tasks file for k8s-install
+- name: add a line hosts
+  lineinfile:
+     dest:  /etc/hosts
+     line: '10.130.21.249    gcr.io'
+  tags:
+   - add_a_line
+
+- name: unarchive tar.gz
+  unarchive:
+    src: http://10.130.21.95:5892/k8s183.tar.gz
+    dest: /tmp
+    remote_src: True
+
+- name: install k8s rpm from a local file
+  yum:
+    name: 
+    - ebtables
+    - /tmp/cab6b288e91e613d81c63101c7d293059a4a9f2c0795228042c880f770a9ec60-kubeadm-1.8.3-0.x86_64.rpm
+    - /tmp/79f9ba89dbe7000e7dfeda9b119f711bb626fe2c2d56abeb35141142cda00342-kubernetes-cni-0.5.1-1.x86_64.rpm
+    - /tmp/ae43f92f96e828779f9744b3660e207199d97dda22eb44c054d2f3150da76b94-kubectl-1.8.3-0.x86_64.rpm
+    - /tmp/a53acfe63a475bf61661036c12890217f4921a6d6d6c3e6ecb4c598fc11cac19-kubelet-1.8.3-0.x86_64.rpm
+    - /tmp/socat-1.7.3.2-2.el7.x86_64.rpm
+    state: present
+- name: shell cmd
+  shell: |
+    swapoff -a
+    echo 'net.bridge.bridge-nf-call-ip6tables = 1' |tee -a /etc/sysctl.conf 
+    echo 'net.bridge.bridge-nf-call-iptables = 1' |tee -a /etc/sysctl.conf 
+    echo 'vm.swappiness=0' |tee -a /etc/sysctl.conf 
+    sysctl -p
+    echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+    echo 1 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
+    hostnamectl set-hostname $(hostname -I|awk '{print $1}'|awk -F"." '{print "c42-"$3"-"$4}')
+  args:
+    executable: /bin/bash
+- name: restart kubelet
+  systemd: name=kubelet state=restarted enabled=yes

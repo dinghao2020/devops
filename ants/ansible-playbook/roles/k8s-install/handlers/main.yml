@@ -1,0 +1,4 @@
+---
+# handlers file for k8s-install
+- name: Restart kubelet
+  systemd: name=kubelet state=restarted enabled=yes
