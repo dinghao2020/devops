@@ -94,5 +94,8 @@ S $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS --runtime-cgroups=/systemd/syste
 systemctl daemon-reload
 systemctl restart kubelet
 ```
-### 如果解决了您的问题，欢迎打赏![](wxzf.jpeg)
-## k8s 1.8+ 私有仓库镜像，hosts 改名，直接pull(收费),欢迎骚扰 ![](add.jpeg)
+### 如果解决了您的问题，欢迎打赏  
+<img src="wxzf.jpeg" width = "200" height = "200" />
+
+## k8s 1.8+ 私有仓库镜像，hosts 改名，直接pull(收费),欢迎骚扰 
+<img src="add.jpeg" width = "200" height = "200" />
