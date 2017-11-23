@@ -95,4 +95,4 @@ systemctl daemon-reload
 systemctl restart kubelet
 ```
 ### 如果解决了您的问题，欢迎打赏![](wxzf.jpeg)
-## k8s 1.8+ 私有仓库镜像，hosts 改名，直接pull(收费),欢迎骚扰 ![](add.jpeg)
+## k8s 1.8+ 私有仓库镜像，hosts 改名，直接pull(收费),欢迎骚扰 ![](add.jpeg =200x200)
