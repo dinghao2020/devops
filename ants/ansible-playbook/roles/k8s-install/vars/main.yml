@@ -1,2 +1,4 @@
 ---
 # vars file for k8s-install
+k8s_clustom_conf_file=k8s_custom_conf.json
+k8s_cl_dest=/etc/systemd/system/kubelet.service.d/05-custom.conf
