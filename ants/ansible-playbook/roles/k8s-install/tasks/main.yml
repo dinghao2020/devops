@@ -39,9 +39,18 @@
   args:
     executable: /bin/bash
 
-- name: up k8s clustom conf
-  template: src={{ k8s_clustom_conf_file }} dest={{ k8s_cl_dest }}
-  tags: up_k8s_c
+- name: replace systemd in k8s-conf
+  replace:
+    path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    regexp: 'systemd'
+    replace: 'cgroupfs'
+    backup: no
 
-- name: restart kubelet
-  systemd: name=kubelet state=restarted enabled=yes
+- name: restart service docker kubelet on centos, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: 
+    - docker
+    - kubelet
+    enabled: True
