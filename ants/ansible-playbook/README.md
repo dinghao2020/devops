@@ -10,7 +10,7 @@ hn 虚拟机hostname
 
 ### 批量生出虚拟机
 ```
-for i in {3..50};do ansible-playbook -i hosts kvm43.yml  -e "name=42-10.110.0.${i}  ip=10.110.0.${i} pre=16 gw_ip=10.110.0.1";done
+for i in {3..50};do ansible-playbook -i hosts kvm43.yml  -e "name=42-10.110.0.${i}  ip=10.110.0.${i} pre=16 gw_ip=10.110.0.2";done
 ```
 ### 单机添加
 ```
