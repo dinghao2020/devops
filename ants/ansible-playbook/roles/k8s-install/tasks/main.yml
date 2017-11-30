@@ -46,11 +46,12 @@
     replace: 'cgroupfs'
     backup: no
 
+- name: daemon-reload
+  command: systemctl daemon-reload
+
 - name: restart service docker kubelet on centos, in all cases, also issue daemon-reload to pick up config changes
   systemd:
+    name: docker
     state: restarted
-    daemon_reload: yes
-    name: 
-    - docker
-    - kubelet
     enabled: True
+  systemd: name=kubelet state=restarted enabled=yes
