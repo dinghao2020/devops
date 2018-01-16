@@ -9,7 +9,7 @@
 
 - name: unarchive tar.gz
   unarchive:
-    src: http://10.130.21.95:5892/k8s183.tar.gz
+    src: http://10.130.21.95:5892/k8s186.tar.gz
     dest: /tmp
     remote_src: True
 
@@ -18,10 +18,10 @@
     name: 
     - ebtables
     - yum-utils
-    - /tmp/cab6b288e91e613d81c63101c7d293059a4a9f2c0795228042c880f770a9ec60-kubeadm-1.8.3-0.x86_64.rpm
-    - /tmp/79f9ba89dbe7000e7dfeda9b119f711bb626fe2c2d56abeb35141142cda00342-kubernetes-cni-0.5.1-1.x86_64.rpm
-    - /tmp/ae43f92f96e828779f9744b3660e207199d97dda22eb44c054d2f3150da76b94-kubectl-1.8.3-0.x86_64.rpm
-    - /tmp/a53acfe63a475bf61661036c12890217f4921a6d6d6c3e6ecb4c598fc11cac19-kubelet-1.8.3-0.x86_64.rpm
+    - /tmp/432a40bb7dbe35e3c85cd926b015269b8de54809ad0f14ceecfd5a05acbe44a4-kubectl-1.8.6-0.x86_64.rpm
+    - /tmp/919d83307b30c808a9bf17f08ab6d72612d08860a8923366e666ed072012f62a-kubeadm-1.8.6-0.x86_64.rpm
+    - /tmp/f4011419193577161ae891a1b26986cae5f5e588941340db3abb771e2a677de7-kubelet-1.8.6-0.x86_64.rpm
+    - /tmp/fe33057ffe95bfae65e2f269e1b05e99308853176e24a4d027bc082b471a07c0-kubernetes-cni-0.6.0-0.x86_64.rpm
     - /tmp/socat-1.7.3.2-2.el7.x86_64.rpm
     state: present
 - name: shell cmd
