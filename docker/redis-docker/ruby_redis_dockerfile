@@ -1,0 +1,4 @@
+FROM ruby:latest
+RUN gem install redis
+ADD ./redis-4.0.8.tar.gz /usr/local
+RUN cd /usr/local && ln -sf redis-4.0.8 redis
