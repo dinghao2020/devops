@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: rbd-dyn-pvc-pod
+  name: ceph-rbd-dyn-pv-pod1
+spec:
+  containers:
+  - name: ceph-rbd-dyn-pv-busybox1
+    image: busybox
+    command: ["sleep", "60000"]
+    volumeMounts:
+    - name: ceph-dyn-rbd-vol1
+      mountPath: /mnt/ceph-dyn-rbd-pvc/busybox
+      readOnly: false
+  volumes:
+  - name: ceph-dyn-rbd-vol1
+    persistentVolumeClaim:
+      claimName: ceph-rbd-dyn-pv-claim
