@@ -107,3 +107,37 @@ kubectl exec -it ceph-rbd-dyn-pv-pod1  -- df -Th
 ```
 
 
+#### 3 查看rbd 信息
+```
+[root@c221 ~]# rbd list
+foo3
+kubernetes-dynamic-pvc-df16cf99-1de3-11e8-ad18-0a580af4010a
+foo
+foo2
+test-image
+testnbdrbd
+[root@c221 ~]# rbd info kubernetes-dynamic-pvc-df16cf99-1de3-11e8-ad18-0a580af4010a
+rbd image 'kubernetes-dynamic-pvc-df16cf99-1de3-11e8-ad18-0a580af4010a':
+        size 1024 MB in 256 objects
+        order 22 (4096 kB objects)
+        block_name_prefix: rb.0.1179.2ae8944a
+        format: 1
+[root@c221 ~]# rbd list
+foo3
+kubernetes-dynamic-pvc-6c08298b-1dea-11e8-ad18-0a580af4010a
+kubernetes-dynamic-pvc-df16cf99-1de3-11e8-ad18-0a580af4010a
+foo
+foo2
+test-image
+testnbdrbd
+[root@c221 ~]# rbd info kubernetes-dynamic-pvc-6c08298b-1dea-11e8-ad18-0a580af4010a
+rbd image 'kubernetes-dynamic-pvc-6c08298b-1dea-11e8-ad18-0a580af4010a':
+        size 5120 MB in 1280 objects
+        order 22 (4096 kB objects)
+        block_name_prefix: rb.0.1194.2ae8944a
+        format: 1
+```
+#### 其他说明
+````
+我们使用动态配置的卷，则默认的回收策略为 “删除”。这意味着，在默认的情况下，当 PVC 被删除时，基础的 PV 和对应的存储也会被删除。如果需要保留存储在卷上的数据，则必须在 PV 被设置之后将回收策略从 delete 更改为 retain。可以通过修改 PV 对象中的 persistentVolumeReclaimPolicy 字段的值来修改 PV 的回收策略
+````
